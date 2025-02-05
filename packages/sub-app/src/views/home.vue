@@ -50,7 +50,8 @@
             :rowDragManaged="true"
             :stopEditingWhenCellsLoseFocus="true"
             :checkboxSelection="true"
-            :suppressRowClickSelection="true">
+            :suppressRowClickSelection="true"
+            @grid-ready="onGridReady">
             </ag-grid-vue>
   </template>
   </div>
@@ -214,7 +215,11 @@ const mainGridColumnDefs = ref([
     cellEditor: 'agLargeTextCellEditor',
     cellEditorParams: { maxLength: 250, rows: 10, cols: 50 }
   }
-  ]);
+]);
+
+const onGridReady = (params: any) => {
+  params.api.setPopupParent(document.querySelector("body"));
+};
 </script>
 <style scoped lang="scss">
 .container {
