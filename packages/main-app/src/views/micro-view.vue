@@ -25,7 +25,7 @@
 import {ref} from 'vue';
 import microApp from "@micro-zoe/micro-app";
 
-const url = "http://localhost:5175";
+const url = "http://localhost:5175/#/";
 const appName = 'DEMO01_c02a55b1-ffec-4967-8889-5dace329f33f';
 const config = ref<Record<string, any>>({
   appContext:"/test/",

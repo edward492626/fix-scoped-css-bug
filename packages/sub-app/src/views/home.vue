@@ -1,6 +1,5 @@
 <template>
-  <router-view></router-view>
-  <!-- <div class="container">
+  <div class="container">
 
   <div class="card">
     <div class="card_cont">
@@ -54,11 +53,11 @@
             :suppressRowClickSelection="true">
             </ag-grid-vue>
   </template>
-  </div> -->
+  </div>
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-/* const value = ref();
+const value = ref();
 const options = ref([]);
 
 const gridReady = ref(false);
@@ -215,10 +214,9 @@ const mainGridColumnDefs = ref([
     cellEditor: 'agLargeTextCellEditor',
     cellEditorParams: { maxLength: 250, rows: 10, cols: 50 }
   }
-  ]); */
+  ]);
 </script>
 <style scoped lang="scss">
-/**
 .container {
   display: flex;
   flex-direction: column;
@@ -244,6 +242,4 @@ const mainGridColumnDefs = ref([
   width: 100% !important;
   height: 100% !important;
 }
-*/
-
 </style>
