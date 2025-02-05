@@ -6,7 +6,7 @@
     <div class="main">
       <div class="header">head</div>
       <micro-app
-        name="DEMO_xxxxx-xxxx-xxxxx-xxxx"
+        :name="appName"
         :url="url"
         :router-mode="'state'"
         :data="config"
@@ -26,35 +26,36 @@ import {ref} from 'vue';
 import microApp from "@micro-zoe/micro-app";
 
 const url = "http://localhost:5175";
+const appName = 'DEMO01_c02a55b1-ffec-4967-8889-5dace329f33f';
 const config = ref<Record<string, any>>({
   appContext:"/test/",
   data: {}
 });
 const handleCreate = () => {
-  console.log("[LifeCycle] created %c%s", "color: green;", "child");
+  console.log("[LifeCycle] created %c%s", "color: green;", appName);
 };
 const handleBeforeMount = (e: CustomEvent) => {
-  console.log("[LifeCycle] before mount %c%s", "color: green;", "child"
+  console.log("[LifeCycle] before mount %c%s", "color: green;", appName
   );
 };
 const handleMount = () => {
-  console.log("[LifeCycle] mounted %c%s", "color: green;", "child");
+  console.log("[LifeCycle] mounted %c%s", "color: green;", appName);
 };
 const handleUnmount = (e: CustomEvent) => {
-  console.log("[LifeCycle] unmount %c%s", "color: green;", "child");
+  console.log("[LifeCycle] unmount %c%s", "color: green;",appName);
 };
 const handleError = (e: CustomEvent) => {
-  console.log( "failed to load %c%s, detail:", "color: red;", 'child', e.detail.error);
+  console.log( "failed to load %c%s, detail:", "color: red;", appName, e.detail.error);
 };
 const handleDataChange = (e: CustomEvent) => {
   console.log("from child:", e.detail.data);
 };
 
 const handleRefresh = (e: any) => {
-  microApp.reload('child', true);
+  microApp.reload(appName, true);
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
 .menu {
   width: 300px;
   height: 100%;
