@@ -66,6 +66,9 @@ importers:
       '@ag-grid-enterprise/advanced-filter':
         specifier: 30.2.1
         version: 30.2.1
+      '@ag-grid-enterprise/clipboard':
+        specifier: 30.2.1
+        version: 30.2.1
       '@ag-grid-enterprise/column-tool-panel':
         specifier: 30.2.1
         version: 30.2.1
@@ -150,6 +153,9 @@ packages:
 
   '@ag-grid-enterprise/advanced-filter@30.2.1':
     resolution: {integrity: sha512-P+oDdXRu1ZzpStBOuD+Ex/8snoEdHt+zJ2y07zBF09YgSlEWQi137Lc88hiowqMKoqP7c7a5J+rYXGqhffrtkg==}
+
+  '@ag-grid-enterprise/clipboard@30.2.1':
+    resolution: {integrity: sha512-z6G7ffGECmJVYvaa8kUY8uk1zfFZK8xPVgmzSPzYz/I/GV/OUk7DUaGpXqOowDq4nNx7LFEp4by7+qhIasFJ0g==}
 
   '@ag-grid-enterprise/column-tool-panel@30.2.1':
     resolution: {integrity: sha512-w4Ed7kKExl5hBhojq3VirK+Qwhp3vfPbLeTnM1AC1unqS6sWAnDQsZb6i9oXKmtMsobDVki+2lMncU+Y0pq44Q==}
@@ -3074,6 +3080,12 @@ snapshots:
   '@ag-grid-enterprise/advanced-filter@30.2.1':
     dependencies:
       '@ag-grid-community/core': 30.2.1
+      '@ag-grid-enterprise/core': 30.2.1
+
+  '@ag-grid-enterprise/clipboard@30.2.1':
+    dependencies:
+      '@ag-grid-community/core': 30.2.1
+      '@ag-grid-community/csv-export': 30.2.1
       '@ag-grid-enterprise/core': 30.2.1
 
   '@ag-grid-enterprise/column-tool-panel@30.2.1':

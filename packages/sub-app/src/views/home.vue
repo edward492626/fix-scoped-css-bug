@@ -32,29 +32,33 @@
       </div>
     </div>
   </div>
-  <template v-if="gridReady">
+  <!-- <template v-if="gridReady"> -->
+  <div style="height: 100px;">
 
     <ag-grid-vue
-            ref="mainGridRef"
-            style="width: 100%; height: 100%"
-            class="ag-theme-balham"
-            :singleClickEdit="true"
-            :rowData="mainGridRowData"
-            :columnDefs="mainGridColumnDefs"
-            :defaultColDef="mainGridDefaultColDef"
-            rowSelection="multiple"
-            groupDisplayType="groupRows"
-            rowGroupPanelShow="always"
-            :rowDragMultiRow="true"
-            :suppressMoveWhenRowDragging="true"
-            :rowDragManaged="true"
-            :stopEditingWhenCellsLoseFocus="true"
-            :checkboxSelection="true"
-            :suppressRowClickSelection="true"
-            @grid-ready="onGridReady">
-            </ag-grid-vue>
-  </template>
+          ref="mainGridRef"
+          style="width: 100%; height: 100%"
+          class="ag-theme-balham"
+          :singleClickEdit="true"
+          :rowData="mainGridRowData"
+          :columnDefs="mainGridColumnDefs"
+          :defaultColDef="mainGridDefaultColDef"
+          rowSelection="multiple"
+          groupDisplayType="groupRows"
+          rowGroupPanelShow="always"
+          :rowDragMultiRow="true"
+          :suppressMoveWhenRowDragging="true"
+          :rowDragManaged="true"
+          :stopEditingWhenCellsLoseFocus="true"
+          :checkboxSelection="true"
+          :suppressRowClickSelection="true"
+          @grid-ready="onGridReady">
+          </ag-grid-vue>
   </div>
+  <!-- </template> -->
+  <div> 其他区域</div>
+  </div>
+
 </template>
 <script setup lang="ts">
 declare const window: Window & Record<string, any>;
@@ -62,8 +66,8 @@ import { ref } from "vue";
 const value = ref();
 const options = ref([]);
 
-const gridReady = ref(false);
-setTimeout(() => { gridReady.value = true}, 2000);
+// const gridReady = ref(false);
+// setTimeout(() => { gridReady.value = true}, 2000);
 const mainGridRowData = ref([
   {
     CODE_CLASS: 'TE00',
@@ -220,7 +224,7 @@ const mainGridColumnDefs = ref([
 
 const onGridReady = (params: any) => {
   const body = document.querySelector('body');
-  params.api.setPopupParent(body);
+  // params.api.setPopupParent(body);
 };
 </script>
 <style scoped lang="scss">

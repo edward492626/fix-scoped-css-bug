@@ -17,13 +17,19 @@ import "ant-design-vue/dist/reset.css";
 
 import { ModuleRegistry } from '@ag-grid-community/core';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
+import { MenuModule } from '@ag-grid-enterprise/menu';
+import { ClipboardModule } from '@ag-grid-enterprise/clipboard';
+import { ExcelExportModule } from '@ag-grid-enterprise/excel-export';
 
 import { AgGridVue } from "@ag-grid-community/vue3";
 import "@ag-grid-community/styles/ag-grid.min.css";
 import "@ag-grid-community/styles/ag-theme-balham.min.css";
 // 注册模块
 ModuleRegistry.registerModules([
-  ClientSideRowModelModule
+  ClientSideRowModelModule,
+  MenuModule,
+  ClipboardModule,
+  ExcelExportModule
 ]);
 declare const window: Window & Record<string, any>;
 
