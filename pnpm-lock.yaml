@@ -15,8 +15,8 @@ importers:
   packages/main-app:
     dependencies:
       '@micro-zoe/micro-app':
-        specifier: 1.0.0-rc.19
-        version: 1.0.0-rc.19
+        specifier: 1.0.0-rc.20
+        version: 1.0.0-rc.20
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.6.3)
@@ -398,8 +398,8 @@ packages:
     resolution: {integrity: sha512-GzScCIkAW3tg3+Yn/MKCH9963bzG+zpjGz2NdfYDlYWI7p0f/SH46v1dqpPpYmZ2E/m3JK8HjTNNNL8eIm8/YQ==}
     engines: {node: '>=18.0.0'}
 
-  '@micro-zoe/micro-app@1.0.0-rc.19':
-    resolution: {integrity: sha512-Ss7TyUpFdpJ0/FslU55cccNOErG314QwwuVO1EaD9gaJsLOlaOn9rRDPSLdYX5P78Xh4M2w32M5OWzH7ao4yzw==}
+  '@micro-zoe/micro-app@1.0.0-rc.20':
+    resolution: {integrity: sha512-RFTPoTnHfTPEeXCF0V8X0i4mkn+d0ecnn29SqQKXz3O34pQ/6F6OAeFWJ0xFHVE2uwK5ldt34oIJWUAl/vsiVw==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -3346,7 +3346,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@micro-zoe/micro-app@1.0.0-rc.19': {}
+  '@micro-zoe/micro-app@1.0.0-rc.20': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:

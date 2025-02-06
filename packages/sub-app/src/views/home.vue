@@ -57,6 +57,7 @@
   </div>
 </template>
 <script setup lang="ts">
+declare const window: Window & Record<string, any>;
 import { ref } from "vue";
 const value = ref();
 const options = ref([]);
@@ -218,7 +219,12 @@ const mainGridColumnDefs = ref([
 ]);
 
 const onGridReady = (params: any) => {
-  params.api.setPopupParent(document.querySelector("body"));
+  const microBody = document.querySelector(`micro-app[name="${window.microApp.appName
+    }"]`)
+  const body = document.querySelector('body');
+
+  console.log('microBody: ', microBody === body);
+  // params.api.setPopupParent(body);
 };
 </script>
 <style scoped lang="scss">
