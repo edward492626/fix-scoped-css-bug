@@ -219,12 +219,8 @@ const mainGridColumnDefs = ref([
 ]);
 
 const onGridReady = (params: any) => {
-  const microBody = document.querySelector(`micro-app[name="${window.microApp.appName
-    }"]`)
   const body = document.querySelector('body');
-
-  console.log('microBody: ', microBody === body);
-  // params.api.setPopupParent(body);
+  params.api.setPopupParent(body);
 };
 </script>
 <style scoped lang="scss">
