@@ -12,9 +12,9 @@
             gap: 10px;
           "
         >
+          <!-- <a-input />
           <a-input />
-          <a-input />
-          <a-input />
+          <a-input /> -->
           <a-select
             v-model:value="value"
             placeholder="custom dropdown render"
@@ -28,32 +28,34 @@
           >
             <template #dropdownRender> test content </template>
           </a-select>
+          <button @click="handleClick">模拟大数据量服务调用</button>
         </div>
       </div>
     </div>
   </div>
   <!-- <template v-if="gridReady"> -->
-  <div style="height: 100px;">
+  <div style="height: 500px;">
 
     <ag-grid-vue
+          id="TEST_MAINGRID"
           ref="mainGridRef"
           style="width: 100%; height: 100%"
           class="ag-theme-balham"
+          :enableRtl="false"
           :singleClickEdit="true"
-          :rowData="mainGridRowData"
+          :rowData="[]"
           :columnDefs="mainGridColumnDefs"
           :defaultColDef="mainGridDefaultColDef"
           rowSelection="multiple"
           groupDisplayType="groupRows"
           rowGroupPanelShow="always"
-          :rowDragMultiRow="true"
-          :suppressMoveWhenRowDragging="true"
-          :rowDragManaged="true"
           :stopEditingWhenCellsLoseFocus="true"
           :checkboxSelection="true"
           :suppressRowClickSelection="true"
-          @grid-ready="onGridReady">
-          </ag-grid-vue>
+          @grid-ready="onGridReady"
+          @first-data-rendered="onFirstDataRendered"
+          @cell-focused="onCellFocused">
+      </ag-grid-vue>
   </div>
   <!-- </template> -->
   <div> 其他区域</div>
@@ -61,80 +63,13 @@
 
 </template>
 <script setup lang="ts">
+import { onBeforeUnmount, onUnmounted, ref } from "vue";
+import { GridApi } from '@ag-grid-community/core';
+
 declare const window: Window & Record<string, any>;
-import { ref } from "vue";
 const value = ref();
 const options = ref([]);
-
-// const gridReady = ref(false);
-// setTimeout(() => { gridReady.value = true}, 2000);
-const mainGridRowData = ref([
-  {
-    CODE_CLASS: 'TE00',
-    UNIT: 'A001',
-    EX_CODE: '0',
-    EX_DESC: '模拟电文',
-    EX_CODE_M: '0,1',
-    PROD_TIME: '20220908232425',
-    WEIGHT: 78.9,
-    LEVEL: '0',
-    REMARK: '11',
-    PASS: '0',
-    REMARK1: '附件上传',
-    REMARK2: '业务快捷链接',
-    REMARK3: '节点实例状态',
-    REMARK4: '非授权按钮'
-  },
-  {
-    CODE_CLASS: 'BG01',
-    UNIT: 'A002',
-    EX_CODE: '0',
-    EX_DESC: '模拟电文',
-    EX_CODE_M: '0',
-    PROD_TIME: '20221008232425',
-    WEIGHT: 20,
-    LEVEL: '1',
-    REMARK: '22',
-    PASS: '0',
-    REMARK1: '板坯位置',
-    REMARK2: '打印备注',
-    REMARK3: '缺陷位置',
-    REMARK4: '取样标记'
-  },
-  {
-    CODE_CLASS: 'ST88',
-    UNIT: 'A003',
-    EX_CODE: '0',
-    EX_DESC: '模拟电文',
-    EX_CODE_M: '0',
-    PROD_TIME: '20221109383800',
-    WEIGHT: 87,
-    LEVEL: '0',
-    REMARK: '33',
-    PASS: '1',
-    REMARK1: '劳动力',
-    REMARK2: '思考思考',
-    REMARK3: '的力量大',
-    REMARK4: '其他资源'
-  },
-  {
-    CODE_CLASS: 'TE46',
-    UNIT: 'A004',
-    EX_CODE: '0',
-    EX_DESC: '模拟电文',
-    EX_CODE_M: '0',
-    PROD_TIME: '20220607454545',
-    WEIGHT: 45,
-    LEVEL: '0',
-    REMARK: '44',
-    PASS: '1',
-    REMARK1: '批处理',
-    REMARK2: '业务代码',
-    REMARK3: '进度跟踪',
-    REMARK4: '日志'
-  }
-]);
-
+const mainGridApi = ref<GridApi>();
 const mainGridDefaultColDef = ref({
   sortable: true,
   editable: false,
@@ -142,90 +77,159 @@ const mainGridDefaultColDef = ref({
   resizable: true
 });
 
+const mainGridRowData = ref<any[]>([]);
+
+// SELECT  , , , , , , , , , , , , , ,,
+// FROM IPLAT4C.HEDLOG;
 const mainGridColumnDefs = ref([
   {
-    headerCheckboxSelection: true,
-    checkboxSelection: true,
-    showDisabledCheckboxes: true,
-    pinned: 'left',
-    lockPinned: true,
-    editable: false,
-    maxWidth: 60,
-    rowDrag: true
-  },
-
-  {
-    field: 'testComp',
-    headerName: '水果',
-    tooltipField: 'testComp'
-  },
-  {
-    field: 'CODE_CLASS',
-    headerName: '代码编号(文本编辑)',
-    pinned: 'left',
-    lockPinned: true,
-    enableRowGroup: true,
-    cellEditorParams: { maxLength: 20 },
-    tooltipField: 'CODE_CLASS'
-  },
-  {
-    field: 'UNIT',
-    headerName: '机组(下拉多列)',
+    field: 'ID',
+    headerName: 'ID',
     enableRowGroup: true
   },
   {
-    field: 'EX_CODE',
-    headerName: '电文(下拉多列并联动)',
-    cellEditorPopup: true
-  },
-  {
-    field: 'EX_DESC',
-    headerName: '电文描述',
-    cellDataType: 'text'
-  },
-  {
-    field: 'EX_CODE_M',
-    headerName: '电文(下拉多选)'
-  },
-  {
-    field: 'PROD_TIME',
-    headerName: '生产时间(日期编辑)',
-    enableRowGroup: true,
-  },
-  // {
-  //   headerName: "详细信息",
-  //   children: [
-  {
-    field: 'WEIGHT',
-    headerName: '重量(数值编辑)',
-    cellDataType: 'number',
-    enableRowGroup: true,
-    cellEditorParams: { showStepperButtons: true }
-  },
-  {
-    field: 'LEVEL',
-    headerName: '等级(下拉单列)',
+    field: 'CREATE_TIME',
+    headerName: 'CREATE_TIME',
     enableRowGroup: true
   },
   {
-    field: 'PASS',
-    headerName: '是否通过(布尔编辑)',
-    enableRowGroup: true,
-    cellDataType: 'boolean'
+    field: 'TIME_INTERVAL',
+    headerName: 'TIME_INTERVAL',
+    enableRowGroup: true
   },
   {
-    field: 'REMARK1',
-    headerName: '备注1(多行文本编辑)',
-    cellEditorPopup: true,
-    cellEditor: 'agLargeTextCellEditor',
-    cellEditorParams: { maxLength: 250, rows: 10, cols: 50 }
+    field: 'PID',
+    headerName: 'PID',
+    enableRowGroup: true
+  },
+  {
+    field: 'IP',
+    headerName: 'IP',
+    enableRowGroup: true
+  },
+  {
+    field: 'MAC',
+    headerName: 'MAC',
+    enableRowGroup: true
+  },
+  {
+    field: 'USERID',
+    headerName: 'USERID',
+    enableRowGroup: true
+  },
+  {
+    field: 'SVC_NAME',
+    headerName: 'SVC_NAME',
+    enableRowGroup: true
+  },
+  {
+    field: 'FUNC_NAME',
+    headerName: 'FUNC_NAME',
+    enableRowGroup: true
+  },
+  {
+    field: 'CAT_NAME',
+    headerName: 'CAT_NAME',
+    enableRowGroup: true
+  },
+  {
+    field: 'PRIORITY',
+    headerName: 'PRIORITY',
+    enableRowGroup: true
+  },
+  {
+    field: 'I18N_FLAG',
+    headerName: 'I18N_FLAG',
+    enableRowGroup: true,
+    type: 'numericColumn'
+  },
+  {
+    field: 'MSG',
+    headerName: 'MSG',
+    enableRowGroup: true
+  },
+  {
+    field: 'KEY1_VALUE',
+    headerName: 'KEY1_VALUE',
+    enableRowGroup: true
+  },
+  {
+    field: 'KEY2_VALUE',
+    headerName: 'KEY2_VALUE',
+    enableRowGroup: true
+  },
+  {
+    field: 'KEY3_VALUE',
+    headerName: 'KEY3_VALUE',
+    enableRowGroup: true
+  },
+  {
+    field: 'KEY4_VALUE',
+    headerName: 'KEY4_VALUE',
+    enableRowGroup: true
+  },
+  {
+    field: 'KEY5_VALUE',
+    headerName: 'KEY5_VALUE',
+    enableRowGroup: true
+  },
+  {
+    field: 'FORMNAME',
+    headerName: 'FORMNAME',
+    enableRowGroup: true
   }
 ]);
 
 const onGridReady = (params: any) => {
-  const body = document.querySelector('body');
+  mainGridApi.value = params.api;
+  // const body = document.querySelector('body');
   // params.api.setPopupParent(body);
 };
+
+
+const onCellFocused = (params: any) => {
+  // console.log("onCellFocused", params);
+
+};
+const onFirstDataRendered = (params: any) => {
+  // 只会自适应可见区域
+  params.columnApi.autoSizeAllColumns();
+};
+
+const handleClick = () => {
+  // 使用fetch获取本地mock数据
+  fetch('/mock-data/query_result_1756190304096.json')
+    .then(response => response.json())
+    .then((mockData) => {
+      // console.log('Mock data loaded:', mockData);
+      const data = mockData.queryResult;
+
+      // // 将查询结果保存到JSON文件
+      // const jsonData = {
+      //   timestamp: new Date().toISOString(),
+      //   queryResult: data,
+      //   totalRecords: data.length
+      // };
+
+      // // 创建下载链接保存JSON文件
+      // const blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: 'application/json' });
+      // const url = URL.createObjectURL(blob);
+      // const link = document.createElement('a');
+      // link.href = url;
+      // link.download = `query_result_${new Date().getTime()}.json`;
+      // document.body.appendChild(link);
+      // link.click();
+      // document.body.removeChild(link);
+      // URL.revokeObjectURL(url);
+
+      mainGridApi.value!.setRowData(data);
+    })
+    .catch(error => {
+      console.error('Error loading mock data:', error);
+    });
+
+};
+
 </script>
 <style scoped lang="scss">
 .container {
